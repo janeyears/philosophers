@@ -6,7 +6,7 @@
 /*   By: ekashirs <ekashirs@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 15:44:40 by ekashirs          #+#    #+#             */
-/*   Updated: 2025/05/04 21:15:35 by ekashirs         ###   ########.fr       */
+/*   Updated: 2025/05/05 13:15:30 by ekashirs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,18 @@ static int	validate_for_pos_int(char **av)
 		if (av[i][j] == '+')
 			j++;
 		else if (av[i][j] == '-')
-			return (err_msg(ERR_NEG), 1);
+			return (error_msg(ERR_NEG), 1);
 		while(av[i][j])
 		{
 			if (av[i][j] < '0' || av[i][j] > '9')
-				return (err_msg(ERR_NOTINT), 1);
+				return (error_msg(ERR_NOTINT), 1);
 			j++;
 		}
 		i++;
 	}
 	return (0);
 }
+
 static int check_args_overflow(t_args *args)
 {
 	if (args->philo_amount > INT_MAX || args->meals_amount > INT_MAX
@@ -78,10 +79,10 @@ int	parsing(t_args *args, char **av)
 	parse_numbers(args, av);
 	if (args->philo_amount == 0 || args->meals_amount == 0)
 		return (error_msg(ERR_ONE), 1);
-	if (args->t_to_die < 60 || args->t_to_eat < 60 
-		|| args->t_to_sleep < 60)
+	if (args->t_to_die < 1 || args->t_to_eat < 1 
+		|| args->t_to_sleep < 1)
 		return (error_msg(ERR_TIME), 1);
-	if (check_args_overflow(args) != 0 || args->philo_amount >= 200)
+	if (check_args_overflow(args) != 0)
 		return (error_msg(ERR_OVERFLOW), 1);
 	return (0);
 }
