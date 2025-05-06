@@ -6,7 +6,7 @@
 /*   By: ekashirs <ekashirs@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 16:34:35 by ekashirs          #+#    #+#             */
-/*   Updated: 2025/05/05 15:21:06 by ekashirs         ###   ########.fr       */
+/*   Updated: 2025/05/06 15:07:05 by ekashirs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,15 @@ static void	init_philos(t_args *args)
 	{
 		args->philos[i].arg_info = args;
 		args->philos[i].ph_id = i + 1;
-		args->philos[i].is_full = false;
+		args->philos[i].has_ate = false;
+		args->philos[i].meals_ate = 0;
+		args->philos[i].t_last_meal = args->t_start;
+		args->philos[i].t_next_meal = args->t_start;
 		setup_fork_order(&args->philos[i], args);
 		i++;
 	}
 }
+
 static int	init_mutex(t_args *args)
 {
 	size_t	i;
@@ -95,6 +99,7 @@ int	init(t_args *args)
 		return (free(args->philos), error_msg(ERR_ALLOC), 1);
 	if (init_forks(args) != 0)
 		return (free(args->philos), free(args->forks), error_msg(ERR_FORKS), 1);
+	args->t_start = get_time();
 	init_philos(args);
 	if (init_mutex(args) != 0)
 		return (free(args->philos), free(args->forks), error_msg(ERR_MUTEX), 1);

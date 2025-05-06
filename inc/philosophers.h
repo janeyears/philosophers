@@ -6,7 +6,7 @@
 /*   By: ekashirs <ekashirs@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 15:44:33 by ekashirs          #+#    #+#             */
-/*   Updated: 2025/05/05 16:40:33 by ekashirs         ###   ########.fr       */
+/*   Updated: 2025/05/06 15:58:02 by ekashirs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,10 @@ typedef struct s_philo
 	int			ph_id;	
 	t_fork		*left_fork;
 	t_fork		*right_fork;
-	bool		is_full;
+	bool		has_ate;
 	size_t		t_last_meal;
+	size_t		t_next_meal;
+	size_t		meals_ate;
 	pthread_t	t_id;
 }	t_philo;
 
@@ -75,9 +77,23 @@ typedef struct s_args
 int		parsing(t_args *args, char **av);
 int		init(t_args *args);
 
+int		start_dinner(t_args *args);
+int		check_meals_done(t_args *args);
+void	monitoring_philos(void *input);
+void	philo_routine(void *input);
+
+
 void	error_msg(char *message);
 long	ft_atol(char *str);
 int		is_space(char c);
 void	*ft_calloc(size_t number, size_t size);
+
+size_t	get_time(void);
+void	print_status(t_philo *philo, char *status);
+void	assign_death_end(t_args *args);
+void	check_time_for_odd(t_philo *philo)
+
+void	destroy_and_free(t_args *args)
+
 
 #endif

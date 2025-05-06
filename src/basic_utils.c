@@ -6,7 +6,7 @@
 /*   By: ekashirs <ekashirs@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 15:44:43 by ekashirs          #+#    #+#             */
-/*   Updated: 2025/05/05 14:51:38 by ekashirs         ###   ########.fr       */
+/*   Updated: 2025/05/06 13:56:19 by ekashirs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ long	ft_atol(char *str)
 	}
 	return (result);
 }
+
 void	*ft_calloc(size_t number, size_t size)
 {
 	void	*ptr;
@@ -67,19 +68,3 @@ void	*ft_calloc(size_t number, size_t size)
 	return (ptr);
 }
 
-void	destroy_and_free(t_args *args)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < args->philo_amount)
-	{
-		pthread_mutex_destroy(&args->forks[i].f_lock);
-		i++;
-	}
-	pthread_mutex_destroy(&args->print_mutex);
-	pthread_mutex_destroy(&args->death_mutex);
-	free(args->forks);
-	free(args->philos);
-	free(args);
-}
