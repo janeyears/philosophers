@@ -6,7 +6,7 @@
 /*   By: ekashirs <ekashirs@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 16:34:35 by ekashirs          #+#    #+#             */
-/*   Updated: 2025/05/06 15:07:05 by ekashirs         ###   ########.fr       */
+/*   Updated: 2025/05/07 22:20:15 by ekashirs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	init_forks(t_args *args)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	while (i < args->philo_amount)
@@ -43,7 +43,7 @@ static void	setup_fork_order(t_philo *philo, t_args *args)
 
 static void	init_philos(t_args *args)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	while (i < args->philo_amount)
@@ -61,7 +61,7 @@ static void	init_philos(t_args *args)
 
 static int	init_mutex(t_args *args)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	if (pthread_mutex_init(&args->print_mutex, NULL) != 0)

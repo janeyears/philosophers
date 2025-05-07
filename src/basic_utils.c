@@ -6,7 +6,7 @@
 /*   By: ekashirs <ekashirs@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 15:44:43 by ekashirs          #+#    #+#             */
-/*   Updated: 2025/05/07 14:36:32 by ekashirs         ###   ########.fr       */
+/*   Updated: 2025/05/07 22:21:39 by ekashirs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	error_msg(char *message)
 {
 	printf("%s\n", message);
-	return (NULL);
 }
 
 int	is_space(char c)

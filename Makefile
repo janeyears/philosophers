@@ -5,10 +5,15 @@ INCLUDES = -I./inc
 SRC_PATH = src/
 OBJ_PATH = obj/
 
-SRCS = $(SRC_PATH)/init.c \
+SRCS = 	$(SRC_PATH)/basic_utils.c \
+	$(SRC_PATH)/dinner.c \
+	$(SRC_PATH)/init.c \
 	$(SRC_PATH)/main.c \
+	$(SRC_PATH)/monitoring.c \
 	$(SRC_PATH)/parse.c \
-	$(SRC_PATH)/utils.c \
+	$(SRC_PATH)/routine.c \
+	$(SRC_PATH)/special_utils.c \
+
 
 SRC	= $(addprefix $(SRC_PATH), $(SRCS))
 OBJ = $(addprefix $(OBJ_PATH), $(notdir $(SRC:.c=.o)))

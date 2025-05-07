@@ -6,7 +6,7 @@
 /*   By: ekashirs <ekashirs@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 13:09:15 by ekashirs          #+#    #+#             */
-/*   Updated: 2025/05/07 14:37:09 by ekashirs         ###   ########.fr       */
+/*   Updated: 2025/05/07 22:27:55 by ekashirs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	assign_death_end(t_args *args)
 
 void	destroy_and_free(t_args *args)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	while (i < args->philo_amount)
@@ -49,14 +49,16 @@ void	destroy_and_free(t_args *args)
 
 void	check_time_for_odd(t_philo *philo)
 {
-	if (philo->t_next_meal - get_current_time() > 0
+	if (philo->t_next_meal - get_time() > 0
 		&& philo->ph_id % 2 == 1)
 			ft_usleep(philo->t_next_meal - get_time());
 }
 
-void	single_lunch(t_philo *philo)
+void	ft_usleep(size_t time)
 {
-	pthread_mutex_lock(&philo->left_fork->f_lock);
-	print_status(philo, "has taken a fork");
-	ft_usleep(philo->arg_info->t_to_die);
+	size_t	start_time;
+
+	start_time = get_time();
+	while (get_time() - start_time < time)
+		usleep(100);
 }

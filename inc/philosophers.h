@@ -6,7 +6,7 @@
 /*   By: ekashirs <ekashirs@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 15:44:33 by ekashirs          #+#    #+#             */
-/*   Updated: 2025/05/07 14:37:05 by ekashirs         ###   ########.fr       */
+/*   Updated: 2025/05/07 22:27:05 by ekashirs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,22 +79,23 @@ int		init(t_args *args);
 
 int		start_dinner(t_args *args);
 int		check_meals_done(t_args *args);
-void	monitoring_philos(void *input);
-void	philo_routine(void *input);
+int		check_death_end(t_args *args);
+void	*monitoring_philos(void *input);
+void	*philo_routine(void *input);
 
 
 void	error_msg(char *message);
 long	ft_atol(char *str);
 int		is_space(char c);
 void	*ft_calloc(size_t number, size_t size);
+void	ft_usleep(size_t time);
 
 size_t	get_time(void);
 void	print_status(t_philo *philo, char *status);
 void	assign_death_end(t_args *args);
 void	check_time_for_odd(t_philo *philo);
-void	single_lunch(t_philo *philo)
 
-void	destroy_and_free(t_args *args)
+void	destroy_and_free(t_args *args);
 
 
 #endif

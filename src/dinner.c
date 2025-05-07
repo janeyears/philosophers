@@ -6,7 +6,7 @@
 /*   By: ekashirs <ekashirs@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 15:06:15 by ekashirs          #+#    #+#             */
-/*   Updated: 2025/05/06 15:09:55 by ekashirs         ###   ########.fr       */
+/*   Updated: 2025/05/07 22:22:50 by ekashirs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	join_threads(t_args *args, size_t count)
 
 int	start_dinner(t_args *args)
 {
-	size_t	i;
+	int	i;
 	
 	i = 0;
 	while (i < args->philo_amount)
