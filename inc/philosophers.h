@@ -6,7 +6,7 @@
 /*   By: ekashirs <ekashirs@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 15:44:33 by ekashirs          #+#    #+#             */
-/*   Updated: 2025/05/06 15:58:02 by ekashirs         ###   ########.fr       */
+/*   Updated: 2025/05/07 14:37:05 by ekashirs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,8 @@ void	*ft_calloc(size_t number, size_t size);
 size_t	get_time(void);
 void	print_status(t_philo *philo, char *status);
 void	assign_death_end(t_args *args);
-void	check_time_for_odd(t_philo *philo)
+void	check_time_for_odd(t_philo *philo);
+void	single_lunch(t_philo *philo)
 
 void	destroy_and_free(t_args *args)
 

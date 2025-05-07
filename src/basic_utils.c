@@ -6,7 +6,7 @@
 /*   By: ekashirs <ekashirs@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 15:44:43 by ekashirs          #+#    #+#             */
-/*   Updated: 2025/05/06 13:56:19 by ekashirs         ###   ########.fr       */
+/*   Updated: 2025/05/07 14:36:32 by ekashirs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,16 @@ void	*ft_calloc(size_t number, size_t size)
 		i++;
 	}
 	return (ptr);
+}
+
+void	print_status(t_philo *philo, char *status)
+{
+	size_t	time;
+
+	time = get_time() - philo->t_last_meal;
+	pthread_mutex_lock(&philo->arg_info->print_mutex);
+	if (!philo->has_ate) // ??
+		printf("%zu %d %s\n",time, philo->ph_id, status);
+	pthread_mutex_unlock(&philo->arg_info->print_mutex);
 }
 

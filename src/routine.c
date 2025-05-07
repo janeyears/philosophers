@@ -6,25 +6,41 @@
 /*   By: ekashirs <ekashirs@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 13:59:36 by ekashirs          #+#    #+#             */
-/*   Updated: 2025/05/06 15:59:53 by ekashirs         ###   ########.fr       */
+/*   Updated: 2025/05/07 14:43:05 by ekashirs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-static void single_lunch(t_philo *philo)
-{
-	print_status(philo, "has taken a fork");
-	ft_usleep(philo->arg_info->t_to_die);
-}
-
 static void	pickup_forks(t_philo *philo)
 {
-	
+	pthread_mutex_lock(&philo->left_fork->f_lock);
+	print_status(philo, "has taken a fork");
+	pthread_mutex_lock(&philo->right_fork->f_lock);
+	print_status(philo, "has taken a fork");
 }
+
+static void	release_forks(t_philo *philo)
+{
+	pthread_mutex_unlock(&philo->left_fork->f_lock);
+	pthread_mutex_unlock(&philo->right_fork->f_lock);
+}
+
 static void	try_to_eat(t_philo *philo)
 {
-	
+	pickup_forks(philo);
+	if (check_death_end(philo->arg_info) == 0)
+		return (release_forks(philo), NULL);
+	else
+	{
+		print_status(philo, "is eating");
+		philo->t_last_meal = get_time();
+		philo->meals_ate += 1;
+		philo->has_ate = true;
+		philo->t_next_meal = philo->t_last_meal + philo->arg_info->t_to_die;
+		ft_usleep(philo->arg_info->t_to_eat);
+	}
+	release_forks(philo);
 }
 
 static void	after_meal(t_philo *philo)

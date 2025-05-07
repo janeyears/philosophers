@@ -6,7 +6,7 @@
 /*   By: ekashirs <ekashirs@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 13:09:15 by ekashirs          #+#    #+#             */
-/*   Updated: 2025/05/06 15:58:04 by ekashirs         ###   ########.fr       */
+/*   Updated: 2025/05/07 14:37:09 by ekashirs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,6 @@ size_t	get_time(void)
 		return (error_msg(ERR_GETTIME), 0);
 	time = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
 	return (time);
-}
-
-void	print_status(t_philo *philo, char *status)
-{
-	size_t	time;
-
-	time = get_time() - philo->t_last_meal;
-	pthread_mutex_lock(&philo->arg_info->print_mutex);
-	if (!philo->has_ate) // ??
-		printf("%zu %d %s\n",time, philo->ph_id, status);
-	pthread_mutex_unlock(&philo->arg_info->print_mutex);
 }
 
 void	assign_death_end(t_args *args)
@@ -63,4 +52,11 @@ void	check_time_for_odd(t_philo *philo)
 	if (philo->t_next_meal - get_current_time() > 0
 		&& philo->ph_id % 2 == 1)
 			ft_usleep(philo->t_next_meal - get_time());
+}
+
+void	single_lunch(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->left_fork->f_lock);
+	print_status(philo, "has taken a fork");
+	ft_usleep(philo->arg_info->t_to_die);
 }
