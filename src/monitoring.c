@@ -6,7 +6,7 @@
 /*   By: ekashirs <ekashirs@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 13:16:56 by ekashirs          #+#    #+#             */
-/*   Updated: 2025/05/07 22:34:02 by ekashirs         ###   ########.fr       */
+/*   Updated: 2025/05/11 23:20:02 by ekashirs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ int	check_death_end(t_args *args)
 	pthread_mutex_lock(&args->death_mutex);
 	if (args->is_end == true)
 	{
-		pthread_mutex_lock(&args->death_mutex);
+		pthread_mutex_unlock(&args->death_mutex);
 		return (0);
 	}
 	else
 	{
-		pthread_mutex_lock(&args->death_mutex);
+		pthread_mutex_unlock(&args->death_mutex);
 		return (1);
 	}
 }
@@ -32,7 +32,7 @@ static int	check_starvation(t_args *args, t_philo *philo)
 	size_t	time;
 
 	time = get_time() - philo->t_last_meal;
-	if (time >= args->t_to_die)
+	if (time >= args->t_to_die && !philo->is_eating)
 	{
 		print_status(philo, "died");
 		assign_death_end(args);
@@ -72,6 +72,7 @@ void	*monitoring_philos(void *input)
 	t_args	*args;
 
 	args = (t_args *)input;
+	wait_to_start(args->t_start, args);
 	while (check_death_end(args))
 	{
 		i = 0;
@@ -79,16 +80,16 @@ void	*monitoring_philos(void *input)
 		{
 			if (check_death_end(args) == 0)
 				return (NULL);
-			if (check_starvation(args, &args->philos[i]) == 0)
-			return (NULL);
+			if (check_starvation(args, &args->philos[i]) == 0 || check_death_end(args) == 0)
+				return (NULL);
 			if (args->meals_amount != -1)
 			{
-				if (check_meals_done(args) == 0)
-				return (NULL);
+				if (check_meals_done(args) == 0 || check_death_end(args) == 0)
+					return (NULL);
 			}
 			i++;
 		}
-		ft_usleep(10);
+		ft_usleep(1, args);
 	}
 	return (NULL);
 }

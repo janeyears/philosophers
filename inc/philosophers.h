@@ -6,7 +6,7 @@
 /*   By: ekashirs <ekashirs@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 15:44:33 by ekashirs          #+#    #+#             */
-/*   Updated: 2025/05/07 22:27:05 by ekashirs         ###   ########.fr       */
+/*   Updated: 2025/05/11 23:08:53 by ekashirs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,9 @@ typedef struct s_philo
 {	
 	t_args		*arg_info;
 	int			ph_id;	
-	t_fork		*left_fork;
-	t_fork		*right_fork;
+	t_fork		*first_fork;
+	t_fork		*second_fork;
+	bool		is_eating;
 	bool		has_ate;
 	size_t		t_last_meal;
 	size_t		t_next_meal;
@@ -88,7 +89,7 @@ void	error_msg(char *message);
 long	ft_atol(char *str);
 int		is_space(char c);
 void	*ft_calloc(size_t number, size_t size);
-void	ft_usleep(size_t time);
+void	ft_usleep(size_t time, t_args *args);
 
 size_t	get_time(void);
 void	print_status(t_philo *philo, char *status);
@@ -96,6 +97,7 @@ void	assign_death_end(t_args *args);
 void	check_time_for_odd(t_philo *philo);
 
 void	destroy_and_free(t_args *args);
+void	wait_to_start(size_t time, t_args *args);
 
 
 #endif

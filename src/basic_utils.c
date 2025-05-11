@@ -6,7 +6,7 @@
 /*   By: ekashirs <ekashirs@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 15:44:43 by ekashirs          #+#    #+#             */
-/*   Updated: 2025/05/07 22:21:39 by ekashirs         ###   ########.fr       */
+/*   Updated: 2025/05/11 22:27:58 by ekashirs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,13 @@ void	print_status(t_philo *philo, char *status)
 {
 	size_t	time;
 
-	time = get_time() - philo->t_last_meal;
+	time = get_time() - philo->arg_info->t_start;
 	pthread_mutex_lock(&philo->arg_info->print_mutex);
-	if (!philo->has_ate) // ??
-		printf("%zu %d %s\n",time, philo->ph_id, status);
+	if (philo->arg_info->is_end == true)
+	{
+		pthread_mutex_unlock(&philo->arg_info->print_mutex);
+		return ;
+	}
+	printf("%zu %d %s\n",time, philo->ph_id, status);
 	pthread_mutex_unlock(&philo->arg_info->print_mutex);
 }
-

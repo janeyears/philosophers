@@ -6,7 +6,7 @@
 /*   By: ekashirs <ekashirs@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 16:34:35 by ekashirs          #+#    #+#             */
-/*   Updated: 2025/05/07 22:20:15 by ekashirs         ###   ########.fr       */
+/*   Updated: 2025/05/11 22:43:17 by ekashirs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ static void	setup_fork_order(t_philo *philo, t_args *args)
 {
 	if (philo->ph_id % 2 == 0)
 	{
-		philo->left_fork = &args->forks[philo->ph_id - 1];
-		philo->right_fork = &args->forks[philo->ph_id % args->philo_amount];
+		philo->first_fork = &args->forks[philo->ph_id - 1];
+		philo->second_fork = &args->forks[philo->ph_id % args->philo_amount];
 	}
 	else
 	{
-		philo->right_fork = &args->forks[philo->ph_id % args->philo_amount];
-		philo->left_fork = &args->forks[philo->ph_id - 1];
+		philo->first_fork = &args->forks[philo->ph_id % args->philo_amount];
+		philo->second_fork = &args->forks[philo->ph_id - 1];
 	}
 }
 
@@ -50,6 +50,7 @@ static void	init_philos(t_args *args)
 	{
 		args->philos[i].arg_info = args;
 		args->philos[i].ph_id = i + 1;
+		args->philos[i].is_eating = false;
 		args->philos[i].has_ate = false;
 		args->philos[i].meals_ate = 0;
 		args->philos[i].t_last_meal = args->t_start;
