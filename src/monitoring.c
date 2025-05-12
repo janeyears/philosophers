@@ -6,7 +6,7 @@
 /*   By: ekashirs <ekashirs@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 13:16:56 by ekashirs          #+#    #+#             */
-/*   Updated: 2025/05/11 23:20:02 by ekashirs         ###   ########.fr       */
+/*   Updated: 2025/05/12 17:49:15 by ekashirs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,20 @@ static int	check_starvation(t_args *args, t_philo *philo)
 {
 	size_t	time;
 
+	pthread_mutex_lock(&args->death_mutex);
 	time = get_time() - philo->t_last_meal;
 	if (time >= args->t_to_die && !philo->is_eating)
 	{
+		pthread_mutex_unlock(&args->death_mutex);
 		print_status(philo, "died");
 		assign_death_end(args);
 		return (0);
 	}
 	else
+	{
+		pthread_mutex_unlock(&args->death_mutex);
 		return (1);
-	
+	}
 }
 
 int	check_meals_done(t_args *args)
@@ -78,6 +82,7 @@ void	*monitoring_philos(void *input)
 		i = 0;
 		while (i < args->philo_amount)
 		{
+			ft_usleep(5, args);
 			if (check_death_end(args) == 0)
 				return (NULL);
 			if (check_starvation(args, &args->philos[i]) == 0 || check_death_end(args) == 0)
@@ -89,7 +94,6 @@ void	*monitoring_philos(void *input)
 			}
 			i++;
 		}
-		ft_usleep(1, args);
 	}
 	return (NULL);
 }
