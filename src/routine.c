@@ -6,7 +6,7 @@
 /*   By: ekashirs <ekashirs@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 13:59:36 by ekashirs          #+#    #+#             */
-/*   Updated: 2025/05/12 17:59:02 by ekashirs         ###   ########.fr       */
+/*   Updated: 2025/05/13 13:43:05 by ekashirs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ static void	single_lunch(t_philo *philo)
 
 static void	pickup_forks(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->arg_info->wait_fork_mutex);
+	//pthread_mutex_lock(&philo->arg_info->wait_fork_mutex);
 	pthread_mutex_lock(&philo->first_fork->f_lock);
 	print_status(philo, "has taken a fork");
 	pthread_mutex_lock(&philo->second_fork->f_lock);
 	print_status(philo, "has taken a fork");
-	pthread_mutex_unlock(&philo->arg_info->wait_fork_mutex);
+	//pthread_mutex_unlock(&philo->arg_info->wait_fork_mutex);
 }
 
 static void	release_forks(t_philo *philo)
@@ -60,13 +60,13 @@ static void	release_forks(t_philo *philo)
 static void	try_to_eat(t_philo *philo)
 {
 	pickup_forks(philo);
-	print_status(philo, "is eating");
 	pthread_mutex_lock(&philo->arg_info->death_mutex);
 	philo->is_eating = true;
 	philo->t_last_meal = get_time();
 	philo->meals_ate += 1;
 	pthread_mutex_unlock(&philo->arg_info->death_mutex);
-	//philo->t_next_meal = philo->t_last_meal + philo->arg_info->t_to_eat + philo->arg_info->t_to_sleep;
+	print_status(philo, "is eating");
+	philo->t_next_meal = philo->t_last_meal + philo->arg_info->t_to_eat * 2 + 1;
 	philo->has_ate = true;
 	controlled_sleep(philo, 0);
 	release_forks(philo);
@@ -85,7 +85,7 @@ void	*philo_routine(void *input)
 		ft_usleep(1, philo->arg_info); 
 	while (check_death_end(philo->arg_info))
 		{
-			//check_time_for_odd(philo);
+			check_time_for_odd(philo);
 			if (philo->has_ate == false && check_death_end(philo->arg_info))
 				try_to_eat(philo);
 			if (philo->has_ate == true && check_death_end(philo->arg_info))

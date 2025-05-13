@@ -6,7 +6,7 @@
 /*   By: ekashirs <ekashirs@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 16:34:35 by ekashirs          #+#    #+#             */
-/*   Updated: 2025/05/12 17:55:46 by ekashirs         ###   ########.fr       */
+/*   Updated: 2025/05/13 13:56:27 by ekashirs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static int	init_mutex(t_args *args)
 	int	i;
 
 	i = 0;
-	if (pthread_mutex_init(&args->wait_fork_mutex, NULL) != 0)
+	if (pthread_mutex_init(&args->print_mutex, NULL) != 0)
 	{
 		while (i < args->philo_amount)
 		{
@@ -82,7 +82,7 @@ static int	init_mutex(t_args *args)
 				pthread_mutex_destroy(&args->forks[i].f_lock);
 				i++;
 			}
-			pthread_mutex_destroy(&args->wait_fork_mutex);
+			pthread_mutex_destroy(&args->print_mutex);
 			return (1);
 		}
 	}

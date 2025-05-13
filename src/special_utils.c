@@ -6,7 +6,7 @@
 /*   By: ekashirs <ekashirs@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 13:09:15 by ekashirs          #+#    #+#             */
-/*   Updated: 2025/05/12 17:59:13 by ekashirs         ###   ########.fr       */
+/*   Updated: 2025/05/13 13:56:56 by ekashirs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,29 +40,24 @@ void	destroy_and_free(t_args *args)
 		pthread_mutex_destroy(&args->forks[i].f_lock);
 		i++;
 	}
-	pthread_mutex_destroy(&args->wait_fork_mutex);
+	pthread_mutex_destroy(&args->print_mutex);
 	pthread_mutex_destroy(&args->death_mutex);
 	free(args->forks);
 	free(args->philos);
 	free(args);
 }
 
-// void	check_time_for_odd(t_philo *philo)
-// {
-// 	size_t	diff;
+void	check_time_for_odd(t_philo *philo)
+{
+	size_t	diff;
 
-// 	if (philo->ph_id % 2 == 1)
-// 	{
-// 		diff = philo->t_next_meal - get_time();
-// 		if (diff > 0)
-// 		{
-// 			if (diff < 100)
-// 				ft_usleep(diff, philo->arg_info);
-// 			else
-// 				ft_usleep(100, philo->arg_info);
-// 		}
-// 	}
-// }
+	if (philo->ph_id % 2 == 1)
+	{
+		diff = philo->t_next_meal - get_time();
+		if (diff > 0)
+				ft_usleep(1, philo->arg_info);
+	}
+}
 
 void	ft_usleep(size_t time, t_args *args)
 {

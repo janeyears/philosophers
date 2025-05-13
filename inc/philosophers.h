@@ -6,7 +6,7 @@
 /*   By: ekashirs <ekashirs@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 15:44:33 by ekashirs          #+#    #+#             */
-/*   Updated: 2025/05/12 17:54:52 by ekashirs         ###   ########.fr       */
+/*   Updated: 2025/05/13 13:56:13 by ekashirs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ typedef struct s_args
 	t_fork			*forks;
 	bool			is_end;
 	pthread_mutex_t	death_mutex;
-	pthread_mutex_t	wait_fork_mutex;
+	pthread_mutex_t	print_mutex;
 	pthread_t		monitor_thread;
 }	t_args;
 
