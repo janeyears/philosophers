@@ -6,7 +6,7 @@
 /*   By: ekashirs <ekashirs@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 13:09:15 by ekashirs          #+#    #+#             */
-/*   Updated: 2025/05/13 13:56:56 by ekashirs         ###   ########.fr       */
+/*   Updated: 2025/05/14 15:55:35 by ekashirs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ size_t	get_time(void)
 
 void	assign_death_end(t_args *args)
 {
-		pthread_mutex_lock(&args->death_mutex);
-		args->is_end = true;
-		pthread_mutex_unlock(&args->death_mutex);
+	pthread_mutex_lock(&args->death_mutex);
+	args->is_end = true;
+	pthread_mutex_unlock(&args->death_mutex);
 }
 
 void	destroy_and_free(t_args *args)
@@ -55,7 +55,7 @@ void	check_time_for_odd(t_philo *philo)
 	{
 		diff = philo->t_next_meal - get_time();
 		if (diff > 0)
-				ft_usleep(1, philo->arg_info);
+			ft_usleep(1, philo->arg_info);
 	}
 }
 
@@ -67,17 +67,7 @@ void	ft_usleep(size_t time, t_args *args)
 	while (get_time() - start_time < time)
 	{
 		if (check_death_end(args) == 0)
-			break;
-		usleep(100);
+			break ;
+		usleep(250);
 	}
 }
-
-void	wait_to_start(size_t time, t_args *args)
-{
-	while (get_time() < time)
-		ft_usleep(10, args);
-}
-
-
-// ./philo 4 410 200 200
-// ./philo 4 130 60 60

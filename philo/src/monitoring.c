@@ -6,7 +6,7 @@
 /*   By: ekashirs <ekashirs@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 13:16:56 by ekashirs          #+#    #+#             */
-/*   Updated: 2025/05/12 17:49:15 by ekashirs         ###   ########.fr       */
+/*   Updated: 2025/05/14 15:54:12 by ekashirs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,12 @@ static int	check_starvation(t_args *args, t_philo *philo)
 	}
 }
 
-int	check_meals_done(t_args *args)
+static int	check_meals_done(t_args *args)
 {
 	int	i;
 
 	i = 0;
-	while(i < args->philo_amount)
+	while (i < args->philo_amount)
 	{
 		pthread_mutex_lock(&args->death_mutex);
 		if (args->philos[i].meals_ate < (size_t)args->meals_amount)
@@ -70,29 +70,30 @@ int	check_meals_done(t_args *args)
 	return (0);
 }
 
-void	*monitoring_philos(void *input)
+void	*monitoring(void *input)
 {
-	int	i;
+	int		i;
 	t_args	*args;
 
 	args = (t_args *)input;
-	wait_to_start(args->t_start, args);
+	while (get_time() < args->t_start)
+		ft_usleep(10, args);
 	while (check_death_end(args))
 	{
-		i = 0;
-		while (i < args->philo_amount)
+		i = -1;
+		while (++i < args->philo_amount)
 		{
 			ft_usleep(5, args);
 			if (check_death_end(args) == 0)
 				return (NULL);
-			if (check_starvation(args, &args->philos[i]) == 0 || check_death_end(args) == 0)
+			if (check_starvation(args, &args->philos[i]) == 0
+				|| check_death_end(args) == 0)
 				return (NULL);
 			if (args->meals_amount != -1)
 			{
 				if (check_meals_done(args) == 0 || check_death_end(args) == 0)
 					return (NULL);
 			}
-			i++;
 		}
 	}
 	return (NULL);

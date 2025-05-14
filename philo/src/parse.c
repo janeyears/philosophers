@@ -6,7 +6,7 @@
 /*   By: ekashirs <ekashirs@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 15:44:40 by ekashirs          #+#    #+#             */
-/*   Updated: 2025/05/05 13:15:30 by ekashirs         ###   ########.fr       */
+/*   Updated: 2025/05/14 15:26:30 by ekashirs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	validate_for_pos_int(char **av)
 			j++;
 		else if (av[i][j] == '-')
 			return (error_msg(ERR_NEG), 1);
-		while(av[i][j])
+		while (av[i][j])
 		{
 			if (av[i][j] < '0' || av[i][j] > '9')
 				return (error_msg(ERR_NOTINT), 1);
@@ -38,7 +38,7 @@ static int	validate_for_pos_int(char **av)
 	return (0);
 }
 
-static int check_args_overflow(t_args *args)
+static int	check_args_overflow(t_args *args)
 {
 	if (args->philo_amount > INT_MAX || args->meals_amount > INT_MAX
 		|| args->t_to_die > INT_MAX || args->t_to_eat > INT_MAX
@@ -48,7 +48,7 @@ static int check_args_overflow(t_args *args)
 		return (0);
 }
 
-static void parse_numbers(t_args *args, char **av)
+static void	parse_numbers(t_args *args, char **av)
 {
 	long	philo_amount;
 	long	meals_amount;
@@ -79,7 +79,7 @@ int	parsing(t_args *args, char **av)
 	parse_numbers(args, av);
 	if (args->philo_amount == 0 || args->meals_amount == 0)
 		return (error_msg(ERR_ONE), 1);
-	if (args->t_to_die < 1 || args->t_to_eat < 1 
+	if (args->t_to_die < 1 || args->t_to_eat < 1
 		|| args->t_to_sleep < 1)
 		return (error_msg(ERR_TIME), 1);
 	if (check_args_overflow(args) != 0)

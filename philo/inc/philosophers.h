@@ -6,7 +6,7 @@
 /*   By: ekashirs <ekashirs@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 15:44:33 by ekashirs          #+#    #+#             */
-/*   Updated: 2025/05/13 13:56:13 by ekashirs         ###   ########.fr       */
+/*   Updated: 2025/05/14 16:39:38 by ekashirs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@
 # define ERR_ARGS "./philo <number_of_philosophers> <time_to_die> <time_to_eat> \
 <time_to_sleep> optional: <number_of_times_each_philosopher_must_eat>"
 # define ERR_ALLOC "Allocation has failed"
-# define ERR_ONE "There must be at least one philosopher and one meal if applicable"
+# define ERR_ONE "There must be at least one philosopher and one \
+meal if applicable"
 # define ERR_NEG "Negative numbers are not allowed"
 # define ERR_NOTINT "Input must be an integer"
 # define ERR_TIME "Time values must be greater than 0"
@@ -43,10 +44,10 @@ typedef struct s_fork
 {
 	int				f_id;
 	pthread_mutex_t	f_lock;
-}	t_fork; 
+}	t_fork;
 
 typedef struct s_philo
-{	
+{
 	t_args		*arg_info;
 	int			ph_id;	
 	t_fork		*first_fork;
@@ -79,11 +80,9 @@ int		parsing(t_args *args, char **av);
 int		init(t_args *args);
 
 int		start_dinner(t_args *args);
-int		check_meals_done(t_args *args);
 int		check_death_end(t_args *args);
-void	*monitoring_philos(void *input);
+void	*monitoring(void *input);
 void	*philo_routine(void *input);
-
 
 void	error_msg(char *message);
 long	ft_atol(char *str);
@@ -95,9 +94,8 @@ size_t	get_time(void);
 void	print_status(t_philo *philo, char *status);
 void	assign_death_end(t_args *args);
 void	check_time_for_odd(t_philo *philo);
+void	smart_sleep(t_philo *philo, int is_eating);
 
 void	destroy_and_free(t_args *args);
-void	wait_to_start(size_t time, t_args *args);
-
 
 #endif

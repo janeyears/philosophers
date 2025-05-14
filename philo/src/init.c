@@ -6,7 +6,7 @@
 /*   By: ekashirs <ekashirs@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 16:34:35 by ekashirs          #+#    #+#             */
-/*   Updated: 2025/05/13 13:56:27 by ekashirs         ###   ########.fr       */
+/*   Updated: 2025/05/14 15:28:24 by ekashirs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,5 +104,5 @@ int	init(t_args *args)
 	init_philos(args);
 	if (init_mutex(args) != 0)
 		return (free(args->philos), free(args->forks), error_msg(ERR_MUTEX), 1);
-	return(0);
+	return (0);
 }
