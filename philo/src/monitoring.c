@@ -6,7 +6,7 @@
 /*   By: ekashirs <ekashirs@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 13:16:56 by ekashirs          #+#    #+#             */
-/*   Updated: 2025/05/14 15:54:12 by ekashirs         ###   ########.fr       */
+/*   Updated: 2025/05/15 16:22:54 by ekashirs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,7 @@ static int	check_starvation(t_args *args, t_philo *philo)
 	if (time >= args->t_to_die && !philo->is_eating)
 	{
 		pthread_mutex_unlock(&args->death_mutex);
-		print_status(philo, "died");
-		assign_death_end(args);
+		print_status(philo, NULL);
 		return (0);
 	}
 	else

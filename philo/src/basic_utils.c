@@ -6,7 +6,7 @@
 /*   By: ekashirs <ekashirs@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/30 15:44:43 by ekashirs          #+#    #+#             */
-/*   Updated: 2025/05/14 15:28:12 by ekashirs         ###   ########.fr       */
+/*   Updated: 2025/05/15 16:22:19 by ekashirs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,14 @@ void	print_status(t_philo *philo, char *status)
 		pthread_mutex_unlock(&philo->arg_info->death_mutex);
 		return ;
 	}
-	printf("%zu %d %s\n", time, philo->ph_id, status);
+	if (!status)
+	{
+		philo->arg_info->is_end = true;
+		printf("%zu %d died\n", time, philo->ph_id);
+		
+	}
+	else
+		printf("%zu %d %s\n", time, philo->ph_id, status);
 	pthread_mutex_unlock(&philo->arg_info->print_mutex);
 	pthread_mutex_unlock(&philo->arg_info->death_mutex);
 }

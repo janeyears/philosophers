@@ -6,7 +6,7 @@
 /*   By: ekashirs <ekashirs@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 13:59:36 by ekashirs          #+#    #+#             */
-/*   Updated: 2025/05/14 15:55:06 by ekashirs         ###   ########.fr       */
+/*   Updated: 2025/05/16 15:29:13 by ekashirs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static void	single_lunch(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->first_fork->f_lock);
 	print_status(philo, "has taken a fork");
+	pthread_mutex_unlock(&philo->first_fork->f_lock);
 	ft_usleep(philo->arg_info->t_to_die, philo->arg_info);
 }
 
